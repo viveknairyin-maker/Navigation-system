@@ -119,8 +119,48 @@ export const GRAPH_EDGES: NavEdge[] = [
   ...e('ff_staircase_south',   'sf_staircase3',         25, true),
   // FF North Staircase → SF Staircase 4 (west side of SF)
   ...e('ff_staircase_north',   'sf_staircase4',         25, true),
-  // Lift FF → SF
+  // Lift chain FF → SF → TF
   ...e('ff_lift',              'sf_lift_room',          20, true),
+  // SF Staircase 4 → TF North Staircase (stair chain continues up)
+  ...e('sf_staircase4',        'tf_staircase_north',    25, true),
+  // SF Staircase 3 → TF South Staircase
+  ...e('sf_staircase3',        'tf_staircase_south',    25, true),
+  // Lift SF → TF
+  ...e('sf_lift_room',         'tf_lift_room',          20, true),
+
+
+  // ═══════════════  THIRD FLOOR CORRIDORS  ══════════════════════
+  // NW arm (small Food Tech room)
+  ...e('tf_j_nw',              'tf_food_tech_nw',       20),
+
+  // North corridor: NW ↔ Food Tech ↔ Food Tech VI ↔ Lift ↔ Stair ↔ Chakra ↔ NE
+  ...e('tf_j_nw',              'tf_food_technology',    15),
+  ...e('tf_food_technology',   'tf_food_tech_vi',       30),
+  ...e('tf_food_tech_vi',      'tf_lift_room',          20),
+  ...e('tf_lift_room',         'tf_staircase_north',    15),
+  ...e('tf_staircase_north',   'tf_chakra_robotics',    20),
+  ...e('tf_chakra_robotics',   'tf_j_ne',               15),
+
+  // NE arm → ACS1
+  ...e('tf_j_ne',              'tf_acs1',               15),
+
+  // West corridor: NW ↔ CSE Staff ↔ Pragma Lab ↔ SW
+  ...e('tf_j_nw',              'tf_cse_staff',          20),
+  ...e('tf_cse_staff',         'tf_pragma_lab',         45),
+  ...e('tf_pragma_lab',        'tf_j_sw',               10),
+
+  // East corridor: NE ↔ ACS2 ↔ ACS3 ↔ ACS4 ↔ ACS5 ↔ SE
+  ...e('tf_j_ne',              'tf_acs2',               15),
+  ...e('tf_acs2',              'tf_acs3',               20),
+  ...e('tf_acs3',              'tf_acs4',               20),
+  ...e('tf_acs4',              'tf_acs5',               20),
+  ...e('tf_acs5',              'tf_j_se',               10),
+
+  // South corridor: SW ↔ ECE Seminar ↔ Stair South ↔ Food Tech South ↔ SE
+  ...e('tf_j_sw',              'tf_ece_seminar_hall',   15),
+  ...e('tf_ece_seminar_hall',  'tf_staircase_south',    25),
+  ...e('tf_staircase_south',   'tf_food_tech_south',    45),
+  ...e('tf_food_tech_south',   'tf_j_se',               35),
 ];
 
 export const NAVIGATION_GRAPH: NavGraph = {

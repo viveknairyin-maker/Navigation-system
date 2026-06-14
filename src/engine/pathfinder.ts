@@ -9,7 +9,7 @@ function heuristic(a: NavNode, b: NavNode): number {
   const pixelDist = Math.sqrt(dx * dx + dy * dy);
 
   // Floor penalty: each floor crossing costs ~50 weight units
-  const floorOrder: Record<string, number> = { ground: 0, first: 1, second: 2 };
+  const floorOrder: Record<string, number> = { ground: 0, first: 1, second: 2, third: 3 };
   const floorDiff = Math.abs((floorOrder[a.floor] ?? 0) - (floorOrder[b.floor] ?? 0));
   const floorPenalty = floorDiff * 50;
 

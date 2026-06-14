@@ -1,4 +1,4 @@
-export type FloorId = 'ground' | 'first' | 'second';
+export type FloorId = 'ground' | 'first' | 'second' | 'third';
 
 export type NodeType =
   | 'room'

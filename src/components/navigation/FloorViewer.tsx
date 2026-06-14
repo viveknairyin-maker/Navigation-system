@@ -5,6 +5,7 @@ import { RouteAnimator } from './RouteAnimator';
 import GroundFloorSVG from '../svg/GroundFloorSVG';
 import FirstFloorSVG from '../svg/FirstFloorSVG';
 import SecondFloorSVG from '../svg/SecondFloorSVG';
+import ThirdFloorSVG from '../svg/ThirdFloorSVG';
 
 interface FloorViewerProps {
   floor: FloorId;
@@ -17,6 +18,7 @@ const SVG_MAP: Record<FloorId, React.ComponentType<{ highlightNodeIds: string[];
   ground: GroundFloorSVG,
   first: FirstFloorSVG,
   second: SecondFloorSVG,
+  third: ThirdFloorSVG,
 };
 
 export const FloorViewer: React.FC<FloorViewerProps> = ({

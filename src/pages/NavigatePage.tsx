@@ -131,7 +131,7 @@ export const NavigatePage: React.FC = () => {
           
           {/* Tabs for changing views manually */}
           <div className="flex gap-1.5 bg-slate-950/40 p-1.5 rounded-xl border border-slate-800">
-            {(['ground', 'first', 'second'] as FloorId[]).map((floor) => (
+            {(['ground', 'first', 'second', 'third'] as FloorId[]).map((floor) => (
               <button
                 key={floor}
                 onClick={() => setCurrentFloor(floor)}
@@ -142,7 +142,7 @@ export const NavigatePage: React.FC = () => {
                     : 'text-slate-400 hover:text-slate-200'}
                 `}
               >
-                {floor === 'ground' ? 'Ground' : floor === 'first' ? '1st Floor' : '2nd Floor'}
+                {floor === 'ground' ? 'Ground' : floor === 'first' ? '1st Floor' : floor === 'second' ? '2nd Floor' : '3rd Floor'}
               </button>
             ))}
           </div>

@@ -117,6 +117,40 @@ export const ALL_ROOMS: NavNode[] = [
   // West arms
   { id: 'sf_girls_washroom',   label: 'Girls Washroom (SF)',        type: 'washroom',   floor: 'second', x: 80,  y: 315 },
   { id: 'sf_boys_washroom',    label: 'Boys Washroom (SF)',         type: 'washroom',   floor: 'second', x: 80,  y: 235 },
+  // ═══════════════════════  THIRD FLOOR  ════════════════════════
+  // Corridor geometry same as GF/SF: N y=155, S y=505, W x=180, E x=820
+  { id: 'tf_j_nw', label: 'NW Junction (3F)', type: 'junction', floor: 'third', x: 180, y: 155 },
+  { id: 'tf_j_ne', label: 'NE Junction (3F)', type: 'junction', floor: 'third', x: 820, y: 155 },
+  { id: 'tf_j_sw', label: 'SW Junction (3F)', type: 'junction', floor: 'third', x: 180, y: 505 },
+  { id: 'tf_j_se', label: 'SE Junction (3F)', type: 'junction', floor: 'third', x: 820, y: 505 },
+
+  // ── NW arm (small Food Tech room) ────────────────────────────
+  { id: 'tf_food_tech_nw',     label: 'Food Tech (NW)',              type: 'lab',       floor: 'third', x: 80,  y: 85  },
+
+  // ── North corridor (y = 155) ─────────────────────────────────
+  { id: 'tf_food_technology',  label: 'Food Technology',             type: 'lab',       floor: 'third', x: 258, y: 155 },
+  { id: 'tf_food_tech_vi',     label: 'Food Technology - VI',        type: 'lab',       floor: 'third', x: 432, y: 155 },
+  { id: 'tf_lift_room',        label: 'Lift Room (3F)',              type: 'lift',      floor: 'third', x: 545, y: 155 },
+  { id: 'tf_staircase_north',  label: 'Staircase North (3F)',        type: 'staircase', floor: 'third', x: 630, y: 155 },
+  { id: 'tf_chakra_robotics',  label: 'Chakra Robotics & AI',        type: 'lab',       floor: 'third', x: 735, y: 155 },
+
+  // ── NE arm (ACS1) ────────────────────────────────────────────
+  { id: 'tf_acs1',             label: 'ACS1',                        type: 'lab',       floor: 'third', x: 820, y: 90  },
+
+  // ── West corridor (x = 180) ──────────────────────────────────
+  { id: 'tf_cse_staff',        label: 'CSE Staff Room',              type: 'office',    floor: 'third', x: 180, y: 235 },
+  { id: 'tf_pragma_lab',       label: 'Pragma Lab',                  type: 'lab',       floor: 'third', x: 180, y: 475 },
+
+  // ── East corridor (x = 820) ──────────────────────────────────
+  { id: 'tf_acs2',             label: 'ACS2',                        type: 'lab',       floor: 'third', x: 820, y: 215 },
+  { id: 'tf_acs3',             label: 'ACS3',                        type: 'lab',       floor: 'third', x: 820, y: 305 },
+  { id: 'tf_acs4',             label: 'ACS4',                        type: 'lab',       floor: 'third', x: 820, y: 395 },
+  { id: 'tf_acs5',             label: 'ACS5',                        type: 'lab',       floor: 'third', x: 820, y: 470 },
+
+  // ── South corridor (y = 505) ─────────────────────────────────
+  { id: 'tf_ece_seminar_hall', label: 'ECE Seminar Hall',            type: 'hall',      floor: 'third', x: 262, y: 505 },
+  { id: 'tf_staircase_south',  label: 'Staircase South (3F)',        type: 'staircase', floor: 'third', x: 415, y: 505 },
+  { id: 'tf_food_tech_south',  label: 'Food Technology (South)',     type: 'lab',       floor: 'third', x: 652, y: 505 },
 ];
 
 export const SEARCHABLE_ROOMS = ALL_ROOMS.filter((n) => n.type !== 'junction');

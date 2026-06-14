@@ -41,20 +41,19 @@ export function generateDirections(
     if (i === 0) {
       direction = `Start at ${node.label}`;
     } else if (node.type === 'staircase') {
-      const goingUp = nextNode && (
-        (node.floor === 'ground' && nextNode.floor !== 'ground') ||
-        (node.floor === 'first' && nextNode.floor === 'second')
-      );
+      const floorOrder: Record<string, number> = { ground: 0, first: 1, second: 2, third: 3 };
+      const floorLabel: Record<string, string> = { ground: 'Ground', first: '1st', second: '2nd', third: '3rd' };
+      const goingUp = nextNode && (floorOrder[nextNode.floor] ?? 0) > (floorOrder[node.floor] ?? 0);
       direction = goingUp
-        ? `Climb stairs up to the ${nextNode?.floor === 'first' ? '1st' : '2nd'} Floor`
-        : `Go down stairs to the ${nextNode?.floor === 'first' ? '1st' : 'Ground'} Floor`;
+        ? `Climb stairs up to the ${floorLabel[nextNode?.floor ?? '']} Floor`
+        : `Go down stairs to the ${floorLabel[nextNode?.floor ?? '']} Floor`;
     } else if (node.type === 'lift') {
-      const goingUp = nextNode && (
-        (node.floor === 'first' && nextNode.floor === 'second')
-      );
+      const floorOrder: Record<string, number> = { ground: 0, first: 1, second: 2, third: 3 };
+      const floorLabel: Record<string, string> = { ground: 'Ground', first: '1st', second: '2nd', third: '3rd' };
+      const goingUp = nextNode && (floorOrder[nextNode.floor] ?? 0) > (floorOrder[node.floor] ?? 0);
       direction = goingUp
-        ? `Take the Lift up to the 2nd Floor`
-        : `Take the Lift down to the 1st Floor`;
+        ? `Take the Lift up to the ${floorLabel[nextNode?.floor ?? '']} Floor`
+        : `Take the Lift down to the ${floorLabel[nextNode?.floor ?? '']} Floor`;
     } else if (i === path.length - 1) {
       direction = `Arrive at ${node.label}`;
     } else if (prevNode && nextNode) {

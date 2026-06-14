@@ -29,14 +29,16 @@ export const HomePage: React.FC = () => {
   // Group rooms by floor to present a beautifully organized list to the user
   const groupedRooms = {
     ground: SEARCHABLE_ROOMS.filter((r) => r.floor === 'ground'),
-    first: SEARCHABLE_ROOMS.filter((r) => r.floor === 'first'),
+    first:  SEARCHABLE_ROOMS.filter((r) => r.floor === 'first'),
     second: SEARCHABLE_ROOMS.filter((r) => r.floor === 'second'),
+    third:  SEARCHABLE_ROOMS.filter((r) => r.floor === 'third'),
   };
 
   const getFloorName = (f: string) => {
     if (f === 'ground') return 'Ground Floor';
-    if (f === 'first') return '1st Floor';
-    return '2nd Floor';
+    if (f === 'first')  return '1st Floor';
+    if (f === 'second') return '2nd Floor';
+    return '3rd Floor';
   };
 
   return (
@@ -53,13 +55,13 @@ export const HomePage: React.FC = () => {
         className="text-center mb-10 z-10"
       >
         <div className="w-20 h-20 mx-auto mb-5 rounded-3xl bg-blue-600/10 border border-blue-500/20 shadow-2xl flex items-center justify-center text-4xl">
-          🏫
+          🧭
         </div>
-        <h1 className="text-4xl md:text-5xl font-black text-white tracking-tight mb-2">
-          Campus<span className="text-blue-500">Nav</span>
+        <h1 className="text-5xl md:text-6xl font-black text-white tracking-tight mb-2">
+          Naviga<span className="text-blue-400">to</span>
         </h1>
         <p className="text-slate-400 text-base md:text-lg font-medium">
-          Premium Indoor Navigation & Wayfinding System
+          Indoor Navigation · 4-Floor College Building
         </p>
       </motion.div>
 
