@@ -50,43 +50,21 @@ export const FloorViewer: React.FC<FloorViewerProps> = ({
   }, [floor]);
 
   return (
-    <div className="w-full flex items-center justify-center p-3">
-      {/* Fixed aspect ratio wrapper so the SVG always gets a real height */}
-      <div
-        className="relative w-full max-w-5xl rounded-2xl overflow-hidden shadow-2xl border border-slate-200 bg-white"
-        style={{ aspectRatio: '1000 / 660' }}
+    <div className="w-full flex flex-col items-center justify-center p-3">
+      <TransformWrapper
+        ref={transformRef}
+        initialScale={1}
+        minScale={1}
+        maxScale={5}
+        centerOnInit={true}
       >
-        <TransformWrapper
-          ref={transformRef}
-          initialScale={1}
-          minScale={1}
-          maxScale={5}
-          centerOnInit={true}
-        >
-          {({ zoomIn, zoomOut, resetTransform }) => (
-            <>
-              {/* Zoom overlay controls */}
-              <div className="absolute bottom-4 right-4 z-30 flex items-center gap-2 bg-slate-900/80 backdrop-blur-md px-3 py-2 rounded-xl border border-white/10 shadow-lg select-none animate-fade-in">
-                <button
-                  onClick={() => zoomIn()}
-                  className="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-white font-extrabold text-lg flex items-center justify-center transition-all cursor-pointer"
-                >
-                  +
-                </button>
-                <button
-                  onClick={() => zoomOut()}
-                  className="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-white font-extrabold text-lg flex items-center justify-center transition-all cursor-pointer"
-                >
-                  −
-                </button>
-                <button
-                  onClick={() => resetTransform()}
-                  className="px-2.5 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-bold text-slate-300 hover:text-white flex items-center justify-center transition-all cursor-pointer"
-                >
-                  Reset
-                </button>
-              </div>
-
+        {({ zoomIn, zoomOut, resetTransform }) => (
+          <>
+            {/* Fixed aspect ratio wrapper so the SVG always gets a real height */}
+            <div
+              className="relative w-full max-w-5xl rounded-2xl overflow-hidden shadow-2xl border border-slate-200 bg-white"
+              style={{ aspectRatio: '1000 / 660' }}
+            >
               <TransformComponent
                 wrapperClass="!w-full !h-full absolute inset-0 cursor-grab active:cursor-grabbing"
                 contentClass="!w-full !h-full"
@@ -122,10 +100,33 @@ export const FloorViewer: React.FC<FloorViewerProps> = ({
                   </motion.div>
                 </AnimatePresence>
               </TransformComponent>
-            </>
-          )}
-        </TransformWrapper>
-      </div>
+            </div>
+
+            {/* Zoom overlay controls - Rendered directly below the blueprint card */}
+            <div className="mt-4 flex items-center justify-center gap-2 bg-slate-800/90 backdrop-blur-md px-4 py-2.5 rounded-2xl border border-white/10 shadow-lg select-none">
+              <span className="text-xs font-bold text-slate-400 mr-2">Zoom:</span>
+              <button
+                onClick={() => zoomIn()}
+                className="w-9 h-9 rounded-xl bg-slate-700 hover:bg-slate-600 text-white font-extrabold text-lg flex items-center justify-center transition-all cursor-pointer"
+              >
+                +
+              </button>
+              <button
+                onClick={() => zoomOut()}
+                className="w-9 h-9 rounded-xl bg-slate-700 hover:bg-slate-600 text-white font-extrabold text-lg flex items-center justify-center transition-all cursor-pointer"
+              >
+                −
+              </button>
+              <button
+                onClick={() => resetTransform()}
+                className="px-3.5 h-9 rounded-xl bg-slate-700 hover:bg-slate-600 text-xs font-bold text-slate-300 hover:text-white flex items-center justify-center transition-all cursor-pointer"
+              >
+                Reset
+              </button>
+            </div>
+          </>
+        )}
+      </TransformWrapper>
     </div>
   );
 };
