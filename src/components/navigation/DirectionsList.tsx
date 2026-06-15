@@ -105,23 +105,6 @@ export const DirectionsList: React.FC<Props> = ({ steps, currentFloor }) => {
                   {step.direction}
                 </p>
                 
-                {/* Floor Indicator Badge */}
-                <span className={`
-                  inline-block text-[9px] font-bold uppercase tracking-wider mt-1 px-1.5 py-0.5 rounded
-                  ${isActive ? 'bg-white/20 text-blue-100' : 'bg-slate-100 text-slate-500'}
-                `}>
-                  {step.floor === 'ground' ? 'Ground Floor' : step.floor === 'first' ? '1st Floor' : '2nd Floor'}
-                </span>
-
-                {/* Floor Switch Notice */}
-                {step.isFloorChange && (
-                  <p className={`
-                    text-xs font-bold mt-1.5 flex items-center gap-1
-                    ${isActive ? 'text-amber-200' : 'text-amber-600'}
-                  `}>
-                    🪜 Transfer to {step.floorChangeTo === 'first' ? '1st Floor' : step.floorChangeTo === 'second' ? '2nd Floor' : 'Ground Floor'}
-                  </p>
-                )}
               </div>
 
               {/* Number indicator */}

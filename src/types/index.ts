@@ -1,5 +1,15 @@
 export type FloorId = 'ground' | 'first' | 'second' | 'third';
 
+export const getFloorLabel = (floor: FloorId): string => {
+  const labels: Record<FloorId, string> = {
+    ground: 'Ground Floor',
+    first: '1st Floor',
+    second: '2nd Floor',
+    third: '3rd Floor',
+  };
+  return labels[floor] ?? floor;
+};
+
 export type NodeType =
   | 'room'
   | 'lab'

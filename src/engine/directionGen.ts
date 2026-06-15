@@ -1,4 +1,6 @@
-import { NavGraph, RouteStep, NavNode } from '../types';
+import { NavGraph, RouteStep, NavNode, FloorId, getFloorLabel } from '../types';
+
+const floorOrder: Record<FloorId, number> = { ground: 0, first: 1, second: 2, third: 3 };
 
 function bearing(a: NavNode, b: NavNode): string {
   const dx = b.x - a.x;
@@ -22,6 +24,24 @@ function turnInstruction(prev: string, next: string): string {
   return 'Turn left';
 }
 
+function getNormalDirection(prevNode: NavNode | null, node: NavNode, nextNode: NavNode | null): string {
+  if (prevNode && nextNode) {
+    const curBearing = bearing(prevNode, node);
+    const nextBearing = bearing(node, nextNode);
+    const turn = turnInstruction(curBearing, nextBearing);
+    
+    if (turn === 'Continue straight') {
+      return `Continue straight past ${node.label}`;
+    } else {
+      return `${turn} at ${node.label}`;
+    }
+  } else if (nextNode) {
+    return `Walk towards ${node.label}`;
+  } else {
+    return `Arrive at ${node.label}`;
+  }
+}
+
 export function generateDirections(
   path: string[],
   graph: NavGraph
@@ -36,40 +56,50 @@ export function generateDirections(
     const nextNode = i < path.length - 1 ? graph.nodes[path[i + 1]] : null;
     const prevNode = i > 0 ? graph.nodes[path[i - 1]] : null;
 
+    // Skip landing stair/lift nodes where transition has already been described
+    const isStaircaseOrLift = node.type === 'staircase' || node.type === 'lift';
+    const isLanding =
+      isStaircaseOrLift &&
+      i > 0 &&
+      i < path.length - 1 &&
+      graph.nodes[path[i - 1]]?.type === node.type &&
+      graph.nodes[path[i - 1]]?.floor !== node.floor &&
+      (nextNode === null || nextNode.floor === node.floor);
+
+    if (isLanding) {
+      continue;
+    }
+
     let direction = '';
 
     if (i === 0) {
       direction = `Start at ${node.label}`;
     } else if (node.type === 'staircase') {
-      const floorOrder: Record<string, number> = { ground: 0, first: 1, second: 2, third: 3 };
-      const floorLabel: Record<string, string> = { ground: 'Ground', first: '1st', second: '2nd', third: '3rd' };
-      const goingUp = nextNode && (floorOrder[nextNode.floor] ?? 0) > (floorOrder[node.floor] ?? 0);
-      direction = goingUp
-        ? `Climb stairs up to the ${floorLabel[nextNode?.floor ?? '']} Floor`
-        : `Go down stairs to the ${floorLabel[nextNode?.floor ?? '']} Floor`;
+      const curFloorVal = floorOrder[node.floor] ?? 0;
+      const nextFloorVal = nextNode ? (floorOrder[nextNode.floor] ?? 0) : curFloorVal;
+      
+      if (nextNode && nextFloorVal > curFloorVal) {
+        direction = `Climb stairs to ${getFloorLabel(nextNode.floor)}`;
+      } else if (nextNode && nextFloorVal < curFloorVal) {
+        direction = `Go down stairs to ${getFloorLabel(nextNode.floor)}`;
+      } else {
+        direction = getNormalDirection(prevNode, node, nextNode);
+      }
     } else if (node.type === 'lift') {
-      const floorOrder: Record<string, number> = { ground: 0, first: 1, second: 2, third: 3 };
-      const floorLabel: Record<string, string> = { ground: 'Ground', first: '1st', second: '2nd', third: '3rd' };
-      const goingUp = nextNode && (floorOrder[nextNode.floor] ?? 0) > (floorOrder[node.floor] ?? 0);
-      direction = goingUp
-        ? `Take the Lift up to the ${floorLabel[nextNode?.floor ?? '']} Floor`
-        : `Take the Lift down to the ${floorLabel[nextNode?.floor ?? '']} Floor`;
+      const curFloorVal = floorOrder[node.floor] ?? 0;
+      const nextFloorVal = nextNode ? (floorOrder[nextNode.floor] ?? 0) : curFloorVal;
+      
+      if (nextNode && nextFloorVal > curFloorVal) {
+        direction = `Take Lift to ${getFloorLabel(nextNode.floor)}`;
+      } else if (nextNode && nextFloorVal < curFloorVal) {
+        direction = `Take Lift down to ${getFloorLabel(nextNode.floor)}`;
+      } else {
+        direction = getNormalDirection(prevNode, node, nextNode);
+      }
     } else if (i === path.length - 1) {
       direction = `Arrive at ${node.label}`;
-    } else if (prevNode && nextNode) {
-      // If we are at a junction/corridor, calculate the turn instruction
-      const curBearing = bearing(prevNode, node);
-      const nextBearing = bearing(node, nextNode);
-      const turn = turnInstruction(curBearing, nextBearing);
-      
-      // If we continue straight, avoid spamming the user unless it is a main hallway
-      if (turn === 'Continue straight') {
-        direction = `Continue straight past ${node.label}`;
-      } else {
-        direction = `${turn} at ${node.label}`;
-      }
     } else {
-      direction = `Walk towards ${node.label}`;
+      direction = getNormalDirection(prevNode, node, nextNode);
     }
 
     // Detect if this step causes a floor change in the next step

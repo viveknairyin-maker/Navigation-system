@@ -9,7 +9,7 @@ import { FloorViewer } from '../components/navigation/FloorViewer';
 import { RoutePanel } from '../components/navigation/RoutePanel';
 import { DirectionsList } from '../components/navigation/DirectionsList';
 import { FloorSwitchOverlay } from '../components/navigation/FloorSwitchOverlay';
-import { FloorId } from '../types';
+import { FloorId, getFloorLabel } from '../types';
 
 export const NavigatePage: React.FC = () => {
   const [searchParams] = useSearchParams();
@@ -142,7 +142,7 @@ export const NavigatePage: React.FC = () => {
                     : 'text-slate-400 hover:text-slate-200'}
                 `}
               >
-                {floor === 'ground' ? 'Ground' : floor === 'first' ? '1st Floor' : floor === 'second' ? '2nd Floor' : '3rd Floor'}
+                {getFloorLabel(floor)}
               </button>
             ))}
           </div>

@@ -1,17 +1,11 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { FloorId } from '../../types';
+import { FloorId, getFloorLabel } from '../../types';
 
 interface Props {
   targetFloor: FloorId;
   changeType?: 'staircase' | 'lift';
 }
-
-const floorLabel = (f: FloorId) => {
-  if (f === 'ground') return 'Ground Floor';
-  if (f === 'first') return '1st Floor';
-  return '2nd Floor';
-};
 
 export const FloorSwitchOverlay: React.FC<Props> = ({ targetFloor, changeType = 'staircase' }) => {
   const icon = changeType === 'lift' ? '🛗' : '🪜';
@@ -38,7 +32,7 @@ export const FloorSwitchOverlay: React.FC<Props> = ({ targetFloor, changeType = 
           {actionText}
         </h3>
         <p className="text-blue-200 text-lg">
-          Moving to <span className="font-semibold text-white">{floorLabel(targetFloor)}</span>
+          Moving to <span className="font-semibold text-white">{getFloorLabel(targetFloor)}</span>
         </p>
 
         {/* Loading Progress Bar */}

@@ -1,15 +1,9 @@
 import React from 'react';
-import { Route } from '../../types';
+import { Route, getFloorLabel, FloorId } from '../../types';
 
 interface Props {
   route: Route | null;
 }
-
-const floorLabel = (f: string) => {
-  if (f === 'ground') return 'Ground Floor';
-  if (f === 'first') return '1st Floor';
-  return '2nd Floor';
-};
 
 export const RoutePanel: React.FC<Props> = ({ route }) => {
   if (!route) {
@@ -35,7 +29,7 @@ export const RoutePanel: React.FC<Props> = ({ route }) => {
           <p className="text-base font-bold text-slate-800 truncate" title={route.from.label}>
             {route.from.label}
           </p>
-          <p className="text-xs text-slate-400 font-medium">{floorLabel(route.from.floor)}</p>
+          <p className="text-xs text-slate-400 font-medium">{getFloorLabel(route.from.floor)}</p>
         </div>
         <div className="flex items-center justify-center w-8 h-8 rounded-full bg-blue-100 text-blue-600 text-lg shadow-sm font-bold">
           ➔
@@ -45,7 +39,7 @@ export const RoutePanel: React.FC<Props> = ({ route }) => {
           <p className="text-base font-bold text-slate-800 truncate" title={route.to.label}>
             {route.to.label}
           </p>
-          <p className="text-xs text-slate-400 font-medium">{floorLabel(route.to.floor)}</p>
+          <p className="text-xs text-slate-400 font-medium">{getFloorLabel(route.to.floor)}</p>
         </div>
       </div>
 

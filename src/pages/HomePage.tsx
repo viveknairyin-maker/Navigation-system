@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { SEARCHABLE_ROOMS } from '../data/rooms';
 import { useNavigationStore } from '../store/navigationStore';
+import { FloorId, getFloorLabel } from '../types';
 
 export const HomePage: React.FC = () => {
   const navigate = useNavigate();
@@ -57,10 +58,7 @@ export const HomePage: React.FC = () => {
   };
 
   const getFloorName = (f: string) => {
-    if (f === 'ground') return 'Ground Floor';
-    if (f === 'first')  return '1st Floor';
-    if (f === 'second') return '2nd Floor';
-    return '3rd Floor';
+    return getFloorLabel(f as FloorId);
   };
 
   return (
