@@ -37,19 +37,21 @@ const ThirdFloorSVG: React.FC<Props> = ({ highlightNodeIds, onNodeClick }) => {
     <g onClick={() => onNodeClick?.(id)} style={{ cursor: 'pointer' }}>
       <rect x={x} y={y} width={w} height={h} rx={3}
         fill={rf(id)} stroke={rs(id)} strokeWidth={hi(id) ? 1.5 : 1} />
-      <text x={x + w / 2} y={y + h / 2 - (sub ? 5 : 0)}
-        textAnchor="middle" dominantBaseline="middle"
-        fontSize={fontSize} fontFamily="Outfit,Inter,sans-serif"
-        fontWeight="600" fill={hi(id) ? '#1d4ed8' : LABEL_CLR}>{label}</text>
-      {sub && (
-        <text x={x + w / 2} y={y + h / 2 + 8}
+      <g transform={`rotate(-90, ${x + w / 2}, ${y + h / 2})`}>
+        <text x={x + w / 2} y={y + h / 2 - (sub ? 5 : 0)}
           textAnchor="middle" dominantBaseline="middle"
-          fontSize={8} fontFamily="Outfit,Inter,sans-serif"
-          fill={hi(id) ? '#3b82f6' : '#64748b'}>{sub}</text>
-      )}
+          fontSize={fontSize} fontFamily="Outfit,Inter,sans-serif"
+          fontWeight="600" fill={hi(id) ? '#1d4ed8' : LABEL_CLR}>{label}</text>
+        {sub && (
+          <text x={x + w / 2} y={y + h / 2 + 8}
+            textAnchor="middle" dominantBaseline="middle"
+            fontSize={8} fontFamily="Outfit,Inter,sans-serif"
+            fill={hi(id) ? '#3b82f6' : '#64748b'}>{sub}</text>
+        )}
+      </g>
     </g>
   );
-
+ 
   // Staircase box helper (cross-hatched pattern)
   const StairBox = ({
     id, x, y, w, h, label,
@@ -65,14 +67,16 @@ const ThirdFloorSVG: React.FC<Props> = ({ highlightNodeIds, onNodeClick }) => {
           x1={x} y1={y + h * t} x2={x + w} y2={y + h * t}
           stroke={hi(id) ? '#93c5fd' : '#c4d5e8'} strokeWidth={0.8} />
       ))}
-      <text x={x + w / 2} y={y + h / 2 - 4}
-        textAnchor="middle" dominantBaseline="middle"
-        fontSize={8} fontFamily="Outfit,Inter,sans-serif"
-        fontWeight="700" fill={hi(id) ? '#1d4ed8' : '#475569'}>{label}</text>
-      <text x={x + w / 2} y={y + h / 2 + 6}
-        textAnchor="middle" dominantBaseline="middle"
-        fontSize={7} fontFamily="Outfit,Inter,sans-serif"
-        fill={hi(id) ? '#3b82f6' : '#94a3b8'}>↕ STAIRS</text>
+      <g transform={`rotate(-90, ${x + w / 2}, ${y + h / 2})`}>
+        <text x={x + w / 2} y={y + h / 2 - 4}
+          textAnchor="middle" dominantBaseline="middle"
+          fontSize={8} fontFamily="Outfit,Inter,sans-serif"
+          fontWeight="700" fill={hi(id) ? '#1d4ed8' : '#475569'}>{label}</text>
+        <text x={x + w / 2} y={y + h / 2 + 6}
+          textAnchor="middle" dominantBaseline="middle"
+          fontSize={7} fontFamily="Outfit,Inter,sans-serif"
+          fill={hi(id) ? '#3b82f6' : '#94a3b8'}>↕ STAIRS</text>
+      </g>
     </g>
   );
 
@@ -130,12 +134,14 @@ const ThirdFloorSVG: React.FC<Props> = ({ highlightNodeIds, onNodeClick }) => {
         <rect x={505} y={10} width={80} height={120} rx={3}
           fill={rf('tf_lift_room')} stroke={rs('tf_lift_room')}
           strokeWidth={hi('tf_lift_room') ? 1.5 : 1} />
-        <text x={545} y={62} textAnchor="middle" dominantBaseline="middle"
-          fontSize={9} fontFamily="Outfit,Inter,sans-serif" fontWeight="700"
-          fill={hi('tf_lift_room') ? '#1d4ed8' : LABEL_CLR}>LIFT</text>
-        <text x={545} y={76} textAnchor="middle" dominantBaseline="middle"
-          fontSize={8} fontFamily="Outfit,Inter,sans-serif"
-          fill={hi('tf_lift_room') ? '#3b82f6' : '#64748b'}>ROOM</text>
+        <g transform="rotate(-90, 545, 70)">
+          <text x={545} y={62} textAnchor="middle" dominantBaseline="middle"
+            fontSize={9} fontFamily="Outfit,Inter,sans-serif" fontWeight="700"
+            fill={hi('tf_lift_room') ? '#1d4ed8' : LABEL_CLR}>LIFT</text>
+          <text x={545} y={76} textAnchor="middle" dominantBaseline="middle"
+            fontSize={8} fontFamily="Outfit,Inter,sans-serif"
+            fill={hi('tf_lift_room') ? '#3b82f6' : '#64748b'}>ROOM</text>
+        </g>
       </g>
 
       {/* Staircase North */}
@@ -207,7 +213,7 @@ const ThirdFloorSVG: React.FC<Props> = ({ highlightNodeIds, onNodeClick }) => {
 
       {/* ── Floor label ─────────────────────────────────────────── */}
       <text x={500} y={25} textAnchor="middle" fontSize={13}
-        fontFamily="Outfit,Inter,sans-serif" fontWeight="700" fill="#475569">
+        fontFamily="Outfit,Inter,sans-serif" fontWeight="700" fill="#475569" transform="rotate(-90, 500, 25)">
         THIRD FLOOR
       </text>
 

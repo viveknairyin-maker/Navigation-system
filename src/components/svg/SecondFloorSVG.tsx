@@ -35,16 +35,18 @@ const SecondFloorSVG: React.FC<Props> = ({ highlightNodeIds, onNodeClick }) => {
     <g onClick={() => onNodeClick?.(id)} style={{ cursor: 'pointer' }}>
       <rect x={x} y={y} width={w} height={h} rx={3}
         fill={rf(id)} stroke={rs(id)} strokeWidth={hi(id) ? 1.5 : 1} />
-      <text x={x + w / 2} y={y + h / 2 - (sub ? 5 : 0)}
-        textAnchor="middle" dominantBaseline="middle"
-        fontSize={fontSize} fontFamily="Outfit,Inter,sans-serif"
-        fontWeight="600" fill={hi(id) ? '#1d4ed8' : LABEL_CLR}>{label}</text>
-      {sub && (
-        <text x={x + w / 2} y={y + h / 2 + 8}
+      <g transform={`rotate(-180, ${x + w / 2}, ${y + h / 2})`}>
+        <text x={x + w / 2} y={y + h / 2 - (sub ? 5 : 0)}
           textAnchor="middle" dominantBaseline="middle"
-          fontSize={8} fontFamily="Outfit,Inter,sans-serif"
-          fill={hi(id) ? '#3b82f6' : '#64748b'}>{sub}</text>
-      )}
+          fontSize={fontSize} fontFamily="Outfit,Inter,sans-serif"
+          fontWeight="600" fill={hi(id) ? '#1d4ed8' : LABEL_CLR}>{label}</text>
+        {sub && (
+          <text x={x + w / 2} y={y + h / 2 + 8}
+            textAnchor="middle" dominantBaseline="middle"
+            fontSize={8} fontFamily="Outfit,Inter,sans-serif"
+            fill={hi(id) ? '#3b82f6' : '#64748b'}>{sub}</text>
+        )}
+      </g>
     </g>
   );
 
@@ -128,7 +130,7 @@ const SecondFloorSVG: React.FC<Props> = ({ highlightNodeIds, onNodeClick }) => {
       <line x1={155} y1={505} x2={820} y2={505} stroke="#c4d5e8" strokeWidth={0.5} strokeDasharray="4 4" />
 
       <text x={500} y={25} textAnchor="middle" fontSize={13}
-        fontFamily="Outfit,Inter,sans-serif" fontWeight="700" fill="#475569">
+        fontFamily="Outfit,Inter,sans-serif" fontWeight="700" fill="#475569" transform="rotate(-180, 500, 25)">
         SECOND FLOOR
       </text>
 
