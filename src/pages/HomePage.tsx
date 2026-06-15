@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { SEARCHABLE_ROOMS } from '../data/rooms';
@@ -9,6 +9,28 @@ export const HomePage: React.FC = () => {
   const { setFrom, setTo } = useNavigationStore();
   const [fromId, setFromId] = useState('');
   const [toId, setToId] = useState('');
+  const toSelectRef = useRef<HTMLSelectElement>(null);
+
+  const handleFromChange = (value: string) => {
+    setFromId(value);
+
+    setTimeout(() => {
+      const toSelect = toSelectRef.current;
+      if (!toSelect) return;
+
+      toSelect.focus();
+
+      if ("showPicker" in toSelect) {
+        try {
+          (toSelect as HTMLSelectElement & {
+            showPicker?: () => void;
+          }).showPicker?.();
+        } catch {
+          // ignore browser limitations
+        }
+      }
+    }, 150);
+  };
 
   const handleFindRoute = () => {
     if (!fromId || !toId) return;
@@ -84,7 +106,7 @@ export const HomePage: React.FC = () => {
             </label>
             <select
               value={fromId}
-              onChange={(e) => setFromId(e.target.value)}
+              onChange={(e) => handleFromChange(e.target.value)}
               className="w-full rounded-xl border border-slate-700 bg-slate-900/90 px-4 py-3.5 text-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 shadow-lg text-sm transition-all"
             >
               <option value="" className="bg-slate-900 text-slate-400">Select start room...</option>
@@ -106,6 +128,7 @@ export const HomePage: React.FC = () => {
               Destination
             </label>
             <select
+              ref={toSelectRef}
               value={toId}
               onChange={(e) => setToId(e.target.value)}
               className="w-full rounded-xl border border-slate-700 bg-slate-900/90 px-4 py-3.5 text-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 shadow-lg text-sm transition-all"
