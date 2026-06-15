@@ -49,7 +49,7 @@ const ThirdFloorSVG: React.FC<Props> = ({ highlightNodeIds, onNodeClick }) => {
       )}
     </g>
   );
- 
+
   // Staircase box helper (cross-hatched pattern)
   const StairBox = ({
     id, x, y, w, h, label,

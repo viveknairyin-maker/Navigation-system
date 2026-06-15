@@ -21,25 +21,6 @@ const SVG_MAP: Record<FloorId, React.ComponentType<{ highlightNodeIds: string[];
   third: ThirdFloorSVG,
 };
 
-const FLOOR_TRANSFORMS: Record<FloorId, { transform: string; transformOrigin: string }> = {
-  ground: {
-    transform: 'translate(0, 5.303%)',
-    transformOrigin: '50% 50%',
-  },
-  first: {
-    transform: 'none',
-    transformOrigin: '50% 50%',
-  },
-  second: {
-    transform: 'translate(0, 5.303%) scale(-1, 1)',
-    transformOrigin: '50% 50%',
-  },
-  third: {
-    transform: 'translate(0, 5.303%)',
-    transformOrigin: '50% 50%',
-  },
-};
-
 export const FloorViewer: React.FC<FloorViewerProps> = ({
   floor,
   pathNodes,
@@ -58,8 +39,6 @@ export const FloorViewer: React.FC<FloorViewerProps> = ({
     [pathNodes, floor]
   );
 
-  const currentTransform = FLOOR_TRANSFORMS[floor];
-
   return (
     <div className="w-full flex items-center justify-center p-3">
       {/* Fixed aspect ratio wrapper so the SVG always gets a real height */}
@@ -75,10 +54,6 @@ export const FloorViewer: React.FC<FloorViewerProps> = ({
             exit={{ opacity: 0, scale: 0.97 }}
             transition={{ duration: 0.35, ease: 'easeInOut' }}
             className="absolute inset-0"
-            style={{
-              transform: currentTransform.transform,
-              transformOrigin: currentTransform.transformOrigin,
-            }}
           >
             {/* Floor plan */}
             <FloorSVG
