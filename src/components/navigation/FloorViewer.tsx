@@ -88,8 +88,8 @@ export const FloorViewer: React.FC<FloorViewerProps> = ({
               </div>
 
               <TransformComponent
-                wrapperClassName="!w-full !h-full absolute inset-0 cursor-grab active:cursor-grabbing"
-                contentClassName="!w-full !h-full"
+                wrapperClass="!w-full !h-full absolute inset-0 cursor-grab active:cursor-grabbing"
+                contentClass="!w-full !h-full"
               >
                 <AnimatePresence mode="wait">
                   <motion.div
