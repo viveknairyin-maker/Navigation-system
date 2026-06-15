@@ -35,7 +35,7 @@ const SecondFloorSVG: React.FC<Props> = ({ highlightNodeIds, onNodeClick }) => {
     <g onClick={() => onNodeClick?.(id)} style={{ cursor: 'pointer' }}>
       <rect x={x} y={y} width={w} height={h} rx={3}
         fill={rf(id)} stroke={rs(id)} strokeWidth={hi(id) ? 1.5 : 1} />
-      <g transform={`rotate(-180, ${x + w / 2}, ${y + h / 2})`}>
+      <g transform={`translate(${x + w / 2}, ${y + h / 2}) scale(-1, 1) translate(-${x + w / 2}, -${y + h / 2})`}>
         <text x={x + w / 2} y={y + h / 2 - (sub ? 5 : 0)}
           textAnchor="middle" dominantBaseline="middle"
           fontSize={fontSize} fontFamily="Outfit,Inter,sans-serif"
@@ -62,8 +62,10 @@ const SecondFloorSVG: React.FC<Props> = ({ highlightNodeIds, onNodeClick }) => {
       <rect x={155} y={130} width={50}  height={400} fill={CORRIDOR} /> {/* West */}
       <rect x={795} y={130} width={50}  height={400} fill={CORRIDOR} /> {/* East */}
       <rect x={205} y={180} width={590} height={300} fill={QUAD} rx={4} />
-      <text x={500} y={330} textAnchor="middle" fontSize={14}
-        fontFamily="Outfit,Inter,sans-serif" fill="#94a3b8" fontStyle="italic">Quadrangle</text>
+      <g transform="translate(500, 330) scale(-1, 1) translate(-500, -330)">
+        <text x={500} y={330} textAnchor="middle" fontSize={14}
+          fontFamily="Outfit,Inter,sans-serif" fill="#94a3b8" fontStyle="italic">Quadrangle</text>
+      </g>
 
       <rect x={10} y={10} width={980} height={640} rx={6}
         fill="none" stroke="#94a3b8" strokeWidth={2} />
@@ -129,10 +131,12 @@ const SecondFloorSVG: React.FC<Props> = ({ highlightNodeIds, onNodeClick }) => {
       <line x1={155} y1={155} x2={820} y2={155} stroke="#c4d5e8" strokeWidth={0.5} strokeDasharray="4 4" />
       <line x1={155} y1={505} x2={820} y2={505} stroke="#c4d5e8" strokeWidth={0.5} strokeDasharray="4 4" />
 
-      <text x={500} y={25} textAnchor="middle" fontSize={13}
-        fontFamily="Outfit,Inter,sans-serif" fontWeight="700" fill="#475569" transform="rotate(-180, 500, 25)">
-        SECOND FLOOR
-      </text>
+      <g transform="translate(500, 25) scale(-1, 1) translate(-500, -25)">
+        <text x={500} y={25} textAnchor="middle" fontSize={13}
+          fontFamily="Outfit,Inter,sans-serif" fontWeight="700" fill="#475569">
+          SECOND FLOOR
+        </text>
+      </g>
 
       {/* Route dots */}
       {dotNodes.map((n) => (

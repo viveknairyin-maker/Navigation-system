@@ -23,19 +23,19 @@ const SVG_MAP: Record<FloorId, React.ComponentType<{ highlightNodeIds: string[];
 
 const FLOOR_TRANSFORMS: Record<FloorId, { transform: string; transformOrigin: string }> = {
   ground: {
-    transform: 'none',
+    transform: 'translate(0, 5.303%)',
     transformOrigin: '50% 50%',
   },
   first: {
-    transform: 'translate(0.006%, -6.567%) rotate(90deg)',
-    transformOrigin: '50% 55.303%',
+    transform: 'none',
+    transformOrigin: '50% 50%',
   },
   second: {
-    transform: 'translate(-0.262%, -0.180%) rotate(180deg)',
+    transform: 'translate(0, 5.303%) scale(-1, 1)',
     transformOrigin: '50% 50%',
   },
   third: {
-    transform: 'translate(0.256%, -0.858%) rotate(90deg)',
+    transform: 'translate(0, 5.303%)',
     transformOrigin: '50% 50%',
   },
 };

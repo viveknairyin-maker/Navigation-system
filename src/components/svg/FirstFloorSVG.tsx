@@ -34,18 +34,16 @@ const FirstFloorSVG: React.FC<Props> = ({ highlightNodeIds, onNodeClick }) => {
     <g onClick={() => onNodeClick?.(id)} style={{ cursor: 'pointer' }}>
       <rect x={x} y={y} width={w} height={h} rx={3}
         fill={rf(id)} stroke={rs(id)} strokeWidth={hi(id) ? 1.5 : 1} />
-      <g transform={`rotate(-90, ${x + w / 2}, ${y + h / 2})`}>
-        <text x={x + w / 2} y={y + h / 2 - (sub ? 5 : 0)}
+      <text x={x + w / 2} y={y + h / 2 - (sub ? 5 : 0)}
+        textAnchor="middle" dominantBaseline="middle"
+        fontSize={fontSize} fontFamily="Outfit,Inter,sans-serif"
+        fontWeight="600" fill={hi(id) ? '#1d4ed8' : LABEL_CLR}>{label}</text>
+      {sub && (
+        <text x={x + w / 2} y={y + h / 2 + 8}
           textAnchor="middle" dominantBaseline="middle"
-          fontSize={fontSize} fontFamily="Outfit,Inter,sans-serif"
-          fontWeight="600" fill={hi(id) ? '#1d4ed8' : LABEL_CLR}>{label}</text>
-        {sub && (
-          <text x={x + w / 2} y={y + h / 2 + 8}
-            textAnchor="middle" dominantBaseline="middle"
-            fontSize={8} fontFamily="Outfit,Inter,sans-serif"
-            fill={hi(id) ? '#3b82f6' : '#64748b'}>{sub}</text>
-        )}
-      </g>
+          fontSize={8} fontFamily="Outfit,Inter,sans-serif"
+          fill={hi(id) ? '#3b82f6' : '#64748b'}>{sub}</text>
+      )}
     </g>
   );
 
@@ -114,7 +112,7 @@ const FirstFloorSVG: React.FC<Props> = ({ highlightNodeIds, onNodeClick }) => {
       <rect x={845} y={505} width={145} height={145} rx={3}
         fill="#f1f5f9" stroke={ROOM_STROKE} strokeWidth={1} />
       <text x={917} y={578} textAnchor="middle" fontSize={8}
-        fontFamily="Outfit,Inter,sans-serif" fill="#94a3b8" transform="rotate(-90, 917, 578)">CORRIDOR</text>
+        fontFamily="Outfit,Inter,sans-serif" fill="#94a3b8">CORRIDOR</text>
 
       {/* ══ BOTTOM SOUTH BLOCK (y 555-640) ══════════════════════════
           South corridor nodes at y=530:
@@ -134,7 +132,7 @@ const FirstFloorSVG: React.FC<Props> = ({ highlightNodeIds, onNodeClick }) => {
       <line x1={155} y1={530} x2={820} y2={530} stroke="#c4d5e8" strokeWidth={0.5} strokeDasharray="4 4" />
 
       <text x={500} y={25} textAnchor="middle" fontSize={13}
-        fontFamily="Outfit,Inter,sans-serif" fontWeight="700" fill="#475569" transform="rotate(-90, 500, 25)">
+        fontFamily="Outfit,Inter,sans-serif" fontWeight="700" fill="#475569">
         FIRST FLOOR
       </text>
 
